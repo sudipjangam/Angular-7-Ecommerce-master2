@@ -1,0 +1,176 @@
+<br>
+<div class="row">
+    <div class="col-md-10">
+        <strong>
+            <h3> All User List : {{all_user_data.length}}</h3>
+        </strong>
+    </div>
+    <div class="col-md-2">
+        <button type="button" class="btn btn-dark float-right" (click)="addUserPopup()" data-bs-toggle="modal"
+            data-bs-target="#addEditUserModal">Add User</button>
+    </div>
+</div>
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Mob</th>
+            <th scope="col">Email</th>
+            <!-- <th scope="col">Gender</th> -->
+            <th scope="col">City</th>
+            <th scope="col">Role</th>
+            <th scope="col">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let user_data of all_user_data; let i = index">
+            <th scope="row">{{i+1}}</th>
+            <td>{{user_data.name}}</td>
+            <td>{{user_data.mobileNumber}}</td>
+            <td>{{user_data.email}}</td>
+            <!-- <td>{{user_data.Gender}}</td> -->
+            <td>{{user_data.address.city}}</td>
+            <td>{{user_data.role}}</td>
+
+            <!-- Button trigger modal -->
+            <!-- <td>
+            <span class="sim-pointer" (click)="editUserPopup(user_data)" data-toggle = "modal" data-target="#addEditUserModal">Edit</span> &nbsp; &nbsp;
+            <span class="sim-pointer" (click)="deleteUser(user_data)">Delete</span>
+        </td> -->
+            <td>
+                <button type="button" class="btn btn-primary" (click)="editUserPopup(user_data.id)" data-bs-toggle="modal" data-bs-target="#addEditUserModal">Edit</button> &nbsp;
+                <button type="button" class="btn btn-danger" (click)="deleteUser(user_data.id)">Delete</button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<!-- Modal for add user and edit user-->
+<div class="modal fade" id="addEditUserModal" tabindex="-1" role="dialog" aria-labelledby="addEditUserModal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">{{popup_header}}</h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-10 offset-md-1">
+                        <form [formGroup]="addEditUserForm">
+                            <div class="form-group" >
+                              <label for="name">Name</label>
+                              <input type="text" class="form-control" formControlName="name">
+                            </div>
+                            <div class="form-group">
+                              <label for="name">Mobile Number</label>
+                              <input type="text" class="form-control" formControlName="mobileNumber">
+                            </div>
+                            <div class="form-group">
+                              <label for="name">Enter your age</label>
+                              <input type="number" class="form-control" formControlName="age">
+                            </div>
+                            <div class="form-group">
+                              <label for="name">Date of Birth</label>
+                              <input type="date" class="form-control" formControlName="DOB">
+                            </div>
+                            <!-------- New Row ---------->
+                            <div class="form-row">
+                              <div class="form-group col-md-6">
+                                <label for="email">Email</label>
+                                <input type="email" class="form-control" placeholder="sudipjangam@gmail.com"
+                                formControlName="email">
+                              </div>
+                              <div class="form-group col-md-6">
+                                <label for="password">Password</label>
+                                <input type="password" class="form-control" placeholder="Enter your password"
+                                formControlName="password">
+                              </div>
+                              <div class="form-group">
+                                <label for="address">Address</label>
+                                <input type="text" class="form-control" placeholder="124,street no. 1,city"
+                                formControlName="addline1">
+                              </div>
+                              <div class="form-group">
+                                <label for="address2">Address2</label>
+                                <input type="text" class="form-control" placeholder="apartment, studio, or floor"
+                                formControlName="addline2">
+                              </div>
+                            </div>
+                            <div class="from-row">
+                              <div class="form-group col-md-6">
+                                <label for="city">City</label>
+                                <input type="text" class="form-control" placeholder="Enter your city"
+                                formControlName="city">
+                              </div>
+                              <div class="form-group col-md-6">
+                                <label for="state">State</label>
+                                <select id="inputState" class="form-control" formControlName="state">
+                                  <option selected>Choose...</option>
+                                  <option>MH</option>
+                                  <option>KA</option>
+                                  <option>GJ</option>
+                                  <option>DL</option>
+                                  <option>TN</option>
+                  
+                                </select>
+                                <!-- <input type="text" class="form-control" placeholder="Enter your State"
+                                formControlName="state"> -->
+                              </div>
+                              <div class="form-group col-md-6">
+                                <label for="zipcode">Zipcode</label>
+                                <input type="text" class="form-control" placeholder="Zipcode"
+                                formControlName="zipcode">
+                              </div>
+                            </div>
+                            <div class="form-group">
+                              <label for="language">Language</label>
+                              <select multiple class="form-control" formControlName="language">
+                                <option>Marathi</option>
+                                <option>Hindi</option>
+                                <option>Bhopuri</option>
+                                <option >Others</option>
+                              </select>
+                            </div>
+                            <div class="form-group">
+                              <label for="gender">Gender</label>
+                              <div class="form-check form-check-inline">
+                                <input type="radio" class="form-check-inline" formControlName="gender" value="Male">
+                                <label for="male" class="form-check-inline">Male</label>
+                                <input type="radio" class="form-check-inline" formControlName="gender" value="Female">
+                                <label for="female" class="form-check-inline">Female</label>
+                              </div>
+                  
+                             </div>
+                             <div class="form-group">
+                              <label for="aboutyou">Something about you</label>
+                              <textarea class="form-control" rows="3" formControlName="aboutyou"></textarea>
+                            </div>
+                            <div class="form-group">
+                              <label for="uploadPhoto">Upload your Photo</label>
+                              <input type="file" class="form-control-file" formControlName="uploadPhoto">
+                            </div>
+                            <div class="form-group">
+                              <input type="checkbox" class="form-check-inline" formControlName="agreetc">
+                              <label for="agreetc" class="form-check-inline">Terms and Conditions</label>
+                            </div>
+                            <div class="form-group">
+                              <label for="role">What you are ?</label>
+                              <select  class="form-control" formControlName="role">
+                                <option value="admin">Admin</option>
+                                <option value="seller">Seller</option>
+                                <option value="buyer">Buyer</option>
+                              </select>
+                            </div>
+                            <div class="form-group">
+                              <button class="btn btn-primary" (click)="addUser()" data-bs-dismiss="modal" *ngIf="add_user">Register</button>
+                              <button class="btn btn-primary" (click)="updateUser()" data-bs-dismiss="modal" *ngIf="edit_user">Update</button>
+                            </div>
+                          </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

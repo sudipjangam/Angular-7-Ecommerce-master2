@@ -1,0 +1,48 @@
+<div class="container">
+  <!-- <div class="card" style="width: 18rem;margin:auto;margin-top:50px">
+    <div class="card-body"> -->
+  <div class="row">
+    <!-- <h5 class="card-title">Admin Login</h5> -->
+    <div class="col-md-6 offset-md-3">
+      <h3 class="card-text">Login to Admin Dashboard.</h3>
+      <form
+        name="form"
+        #tf="ngForm"
+        (ngSubmit)="tf.form.valid && onSubmitSignIn()"
+        novalidate
+      >
+        <div class="form-group">
+          <label for="exampleInputEmail">Email :</label>
+          <input
+            type="email"
+            name="useremail"
+            class="form-control"
+            id="exampleInputEmail1"
+            aria-describedby="emailHelp"
+            placeholder="Enter Email"
+            [(ngModel)]="signInFormValues.useremail"
+            #useremail="ngModel"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="exampleInputPassword1">Password :</label>
+          <input
+            type="password"
+            class="form-control"
+            name="userpassword"
+            id="exampleInputPassword1"
+            placeholder="Password"
+            [(ngModel)]="signInFormValues.userpassword"
+            #userpassword="ngModel"
+            required
+            togglePassword
+          />
+        </div>
+        <div class="form-group">
+          <button type="submit" class="btn btn-primary">Login</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
